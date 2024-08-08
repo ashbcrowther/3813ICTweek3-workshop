@@ -1,0 +1,22 @@
+{
+  "name": "3813ictweek3-workshop",
+  "version": "1.0.0",
+  "description": "Workshop 3 ",
+  "main": "script.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ashbcrowther/3813ICTweek3-workshop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashbcrowther/3813ICTweek3-workshop/issues"
+  },
+  "homepage": "https://github.com/ashbcrowther/3813ICTweek3-workshop#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
