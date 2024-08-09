@@ -1,31 +1,21 @@
-const PORT = 8888
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
+const app = express();
+const PORT = 8888;
 
-var express = require('express'); //used for routing
-var app = express();
-var http = require('http').Server(app); //used to provide http functionality
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-app.use(express.urlencoded({
-    extended:true
-}));
+// Serve static files (HTML, CSS, JS) from "www" directory
+app.use(express.static(path.join(__dirname, 'www')));
 
-app.use(express.json());
-app.use(express.static(__dirname + 'www'));
-app.get('/test', function (req, res){
-    res.sendFile(__dirname + '/www/test.html');
+// Import routes
+require('./routes/homeroute.js').route(app, path);
+require('./routes/accountroute.js').route(app, path);
+require('./routes/check.js').routeFunc(app); 
+
+// Starts the server on specified port
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
-console.log(__dirname);
-require('./routes/check.js').routeFunc(app);
-
-http.listen(PORT,
-    () => {
-        console.log('Server listening on:' + PORT);
-    }
-);
-
-/*let server = http.listen(3000, function () {
-    let host = server.address().address;
-    let port = server.address().port;
-    console.log("My First Nodejs Server!");
-    console.log("Server listening on: "+ host + " port: " + port);
-    }); */
-

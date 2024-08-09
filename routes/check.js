@@ -1,33 +1,33 @@
-
-
+const fs = require('fs');
 
 module.exports = {
-    routeFunc: (app) =>
-        app.post('/check', function(req, res){
+    routeFunc: (app) => {
+        app.post('/check', function(req, res) {
+            const c = {
+                email: req.body.email,
+                password: req.body.password
+            };
 
-            c = {
-                "email": req.body.username,
-                "password": req.body.psw
-            }
-
-            fs.readFile('./data/userlist.json', 'utf8', function(err, data){
+            fs.readFile('./data/userlist.json', 'utf8', function(err, data) {
                 if (err) throw err;
-                let obj = JSON.parse(data);
-                console.log(obj);
-                console.log(c);
+                let users = JSON.parse(data);
 
-                let find = obj.some(e => (e.email == c.email && e.password == c.password));
-                if (find) {
+                // Use .find() to get the user object
+                let user = users.find(u => u.email === c.email && u.password === c.password);
+
+                if (user) {
                     res.json({
-                        "ok": true
+                        ok: true,
+                        name: user.name
                     });
                 } else {
                     console.log("Invalid Login");
                     res.json({
-                        "ok": false,
+                        ok: false,
                         errors: []
                     });
                 }
-            })
-        })
-}
+            });
+        });
+    }
+};
