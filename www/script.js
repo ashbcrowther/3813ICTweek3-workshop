@@ -8,7 +8,6 @@ $(document).ready(function() {
 });
 
 function ajaxPost() {
-    // Prepare Form Data from the web form
     var formData = {
         email: $("#email").val(),
         password: $("#upwd").val() 
@@ -18,12 +17,12 @@ function ajaxPost() {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "/check", //handle the login
+        url: "/check", 
         data: JSON.stringify(formData), // Convert the form data to JSON
         dataType: 'json',
         success: function(customer) {
             if (customer.ok) { // Check if the login successful
-                // Store the user's details in sessionStorage
+                // Store details in sessionStorage
                 sessionStorage.setItem('userName', customer.name);
                 sessionStorage.setItem('userEmail', formData.email);
                 sessionStorage.setItem('userPassword', formData.password);
@@ -31,7 +30,6 @@ function ajaxPost() {
                 // Redirect to the account page
                 window.location.href = '/account';
             } else {
-                // Display error message
                 $("#loginform").after('<p class="error-message">Invalid email or password. Please try again.</p>');
             }
         },
